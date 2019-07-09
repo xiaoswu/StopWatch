@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="STr-Iy-yrw">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--秒表-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="stopWatch_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bU8-PG-6sz">
+                                <rect key="frame" x="62" y="218" width="290" height="84"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gt4-0i-pkq" customClass="WSButton" customModule="stopWatch_swift" customModuleProvider="target">
+                                <rect key="frame" x="30" y="382" width="80" height="80"/>
+                                <color key="backgroundColor" red="0.17876674109999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="8Df-9H-ukr"/>
+                                    <constraint firstAttribute="height" constant="80" id="xpj-o4-xET"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="计次">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tVO-to-D9b"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PY0-Vi-Qdu" customClass="WSButton" customModule="stopWatch_swift" customModuleProvider="target">
+                                <rect key="frame" x="304" y="382" width="80" height="80"/>
+                                <color key="backgroundColor" red="0.078431372550000003" green="0.15686274510000001" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="Apy-kA-bRH"/>
+                                    <constraint firstAttribute="width" constant="80" id="lof-Hj-9it"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="启动"/>
+                                <connections>
+                                    <action selector="start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mSt-bK-yxE"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2cO-hT-aiq">
+                                <rect key="frame" x="0.0" y="482" width="414" height="380"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="fEy-HM-YUc"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="EQg-Mg-rIY"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2cO-hT-aiq" secondAttribute="trailing" id="3CV-mi-6Ud"/>
+                            <constraint firstItem="gt4-0i-pkq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="8ma-l8-7ma"/>
+                            <constraint firstItem="2cO-hT-aiq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gx6-Bu-SuN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PY0-Vi-Qdu" secondAttribute="trailing" constant="30" id="HGn-gM-qWZ"/>
+                            <constraint firstItem="PY0-Vi-Qdu" firstAttribute="centerY" secondItem="gt4-0i-pkq" secondAttribute="centerY" id="RPV-Ws-cAb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2cO-hT-aiq" secondAttribute="bottom" id="esg-RY-5rS"/>
+                            <constraint firstItem="gt4-0i-pkq" firstAttribute="top" secondItem="bU8-PG-6sz" secondAttribute="bottom" constant="80" id="gSt-3J-YhX"/>
+                            <constraint firstItem="2cO-hT-aiq" firstAttribute="top" secondItem="gt4-0i-pkq" secondAttribute="bottom" constant="20" id="loq-bL-OhB"/>
+                            <constraint firstItem="bU8-PG-6sz" firstAttribute="centerX" secondItem="2cO-hT-aiq" secondAttribute="centerX" id="mL8-Ih-iUo"/>
+                            <constraint firstItem="bU8-PG-6sz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="130" id="ry4-sh-2PG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="秒表" id="ypZ-n9-mOf"/>
+                    <connections>
+                        <outlet property="resetButton" destination="gt4-0i-pkq" id="3Rg-EZ-AZO"/>
+                        <outlet property="startButton" destination="PY0-Vi-Qdu" id="o02-v2-oGD"/>
+                        <outlet property="tableView" destination="2cO-hT-aiq" id="3VF-qG-ThQ"/>
+                        <outlet property="timeLable" destination="bU8-PG-6sz" id="yPK-Jh-8Uu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="948" y="475"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Spu-ZE-wMH">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="STr-Iy-yrw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="R1g-Bq-JOw">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="pn9-CV-A5X"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SQa-bf-hh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="183" y="475"/>
+        </scene>
+    </scenes>
+</document>
