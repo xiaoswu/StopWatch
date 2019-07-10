@@ -16,8 +16,18 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var startButton: WSButton!
     
     var times: [Int]! = []
-    var totalTime = 0
-    var intervals = 0
+    var totalTime = 0 {
+        willSet{
+            timeLable.text = convertTime(seconds: newValue)
+        }
+    }
+    var intervals = 0 {
+        willSet{
+            let cell = topcell()
+            cell?.detailTextLabel?.text = convertTime(seconds: newValue)
+        }
+
+    }
     var timer: Timer? = nil
     var isReset = true
     
@@ -36,7 +46,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             totalTime = 0
             intervals = 0
             
-            timeLable.text = "00:00.00"
             if (!times.isEmpty){
                 times .removeAll()
             }
@@ -55,32 +64,28 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBAction func start(_ sender: WSButton) {
         sender.isSelected = !sender.isSelected
         
-        if sender.isSelected {
-            if !resetButton.isEnabled {
-                resetButton.isEnabled = true
-            } else {
-                resetButton.isSelected = false
-            }
-            
-            if isReset {
-                addNewTime()
-                isReset = false
-            }
-            
-            timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: {[weak self] _ in
-                self?.totalTime += 1
-                self?.intervals += 1
-                
-                self?.timeLable.text = self?.convertTime(seconds: self!.totalTime)
-                
-                let cell = self?.topcell()
-                cell?.detailTextLabel?.text = self?.convertTime(seconds: self!.intervals)
-                self?.times[0] = self!.intervals
-            })
-            RunLoop.current.add(self.timer!, forMode: .common)
-        } else {
+        if !sender.isSelected {
             resetButton.isSelected = true
             timer?.invalidate()
+            return
+        }
+        
+        if !resetButton.isEnabled {
+            resetButton.isEnabled = true
+        } else {
+            resetButton.isSelected = false
+        }
+        
+        if isReset {addNewTime(); isReset = false}
+        
+        
+        if timer == nil {
+            timer = Timer.init(timeInterval: 0.01, repeats: true, block: { [weak self] _ in
+                self?.totalTime += 1
+                self?.intervals += 1
+                self?.times[0] = self!.intervals
+            })
+            RunLoop.current.add(self.timer!, forMode: .commonModes)
         }
     }
     
