@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "WSButton.h"
 #import "UIImage+color.h"
+#import "StopWatchData.h"
+#import "recordTimeCell.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -16,18 +18,20 @@
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 
+@property(strong,nonatomic,readonly)recordTimeCell * currentRunTimeCell;
+
 @end
+
+static NSString *const cellId = @"cellId";
 
 @implementation ViewController
 {
-    NSMutableArray<NSNumber *> *_times;
     NSTimer *_timer;
-    NSUInteger _totalTime;
-    NSUInteger _intervals;
+    NSTimeInterval _totalTime;
+    NSTimeInterval _interval;
+    StopWatchData *_timeData;
     
-    UITableViewCell * _currentRunTimeCell; // 正在计时的cell
-    
-    BOOL _isReset; // 是否是复位状态
+    recordTimeCell * _currentRunTimeCell; // 正在计时的cell
 }
 
 - (void)viewDidLoad {
@@ -37,23 +41,18 @@
     
     [self _setupNavigation];
     
-    [self _setupUI];
+    [self _setupButtons];
     
 }
 
 - (void)_initVariables{
-    _isReset = YES;
     
     _totalTime = 0;
-    _intervals = 0;
+    _interval = 0;
     
     _timeLabel.text = @"00:00.00";
     
-    if (_times.count) {
-        [_times removeAllObjects];
-    } else {
-        _times = [NSMutableArray array];
-    }
+    _timeData = [[StopWatchData alloc] init];
 }
 
 - (void)_setupNavigation{
@@ -67,7 +66,7 @@
     [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
 }
 
-- (void)_setupUI{
+- (void)_setupButtons{
     
     // resetButton
     self.resetButton.layer.cornerRadius = self.resetButton.bounds.size.width * 0.5;
@@ -113,16 +112,11 @@
         
     } else { // 计次
         
-        _intervals = 0;
-        
-        [self _addNewTime];
-        
+        _interval = 0;
+        [_timeData beginingNewTimeWithCompletion:^{
+            [self->_tableView reloadData];
+        }];
     }
-}
-
-- (void)_addNewTime{
-    [_times insertObject:@0 atIndex:0];
-    [_tableView reloadData];
 }
 
 - (IBAction)start:(WSButton *)sender {
@@ -136,22 +130,23 @@
             self.resetButton.selected = NO;
         }
         
-        if (_isReset) {
-            [self _addNewTime];
-            _isReset = NO;
+        if (_timeData.isReset) {
+            [_timeData beginingNewTimeWithCompletion:^{
+                [self->_tableView reloadData];
+            }];
         }
         
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.01 repeats:YES block:^(NSTimer * _Nonnull timer) {
             self->_totalTime++;
-            self->_intervals++;
-            self->_timeLabel.text = [self _getTime:self->_totalTime];
+            self->_interval++;
+            self->_timeLabel.text = [self _convertTime:self->_totalTime];
             
             if (self->_currentRunTimeCell != [self _topCell]) {
                 self->_currentRunTimeCell = [self _topCell];
             }
             
-            self->_currentRunTimeCell.detailTextLabel.text = [self _getTime:self->_intervals];
-            [self->_times replaceObjectAtIndex:0 withObject:@(self->_intervals)];
+            self->_currentRunTimeCell.detailTextLabel.text = [self _convertTime:self->_interval];
+            [self->_timeData timing:self->_interval];
             
         }];
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
@@ -163,78 +158,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString *const cellId = @"cellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    recordTimeCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId];
-        cell.backgroundColor = [UIColor blackColor];
-        
-        cell.textLabel.textColor = [UIColor whiteColor];
-        cell.detailTextLabel.textColor = [UIColor whiteColor];
-        
-
-        
-        cell.textLabel.text = [NSString stringWithFormat:@"计次 %lu",_times.count - indexPath.row];
-        
-        NSUInteger time = [_times[indexPath.row] integerValue];
-        cell.detailTextLabel.text = [self _getTime:time];
-        cell.detailTextLabel.textAlignment = NSTextAlignmentLeft;
-        
-        // 调整颜色
-        if (indexPath.row == [self _maxTimeIndex] && indexPath.row != 0) {
-            cell.textLabel.textColor = [UIColor redColor];
-            cell.detailTextLabel.textColor = [UIColor redColor];
-        }
-        
-        if (indexPath.row == [self _minTimeIndex] && indexPath.row != 0) {
-            cell.textLabel.textColor = [UIColor greenColor];
-            cell.detailTextLabel.textColor = [UIColor greenColor];
-        }
-    
-        cell.userInteractionEnabled = NO;
+        cell = [[recordTimeCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId];
     }
     
+    [cell recordTimeWithData:_timeData atIndexPath:indexPath];
+
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _times.count;
+    return _timeData.times.count;
 }
 
-- (UITableViewCell *)_topCell{
+- (recordTimeCell *)_topCell{
     return [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
-- (NSString *)_getTime:(NSUInteger)time{
+- (NSString *)_convertTime:(NSUInteger)time{
     return [NSString stringWithFormat:@"%02ld:%02ld.%02ld",time / 100 / 60, time / 100 % 60, time % 100];;
 }
 
-- (NSUInteger)_maxTimeIndex{
-    if (_times.count<= 2) {
-        return 0;
-    }
-    
-    int maxIndex = 1;
-    for (int i = 2; i < _times.count; i++) {
-        if ([_times[i] intValue] > [_times[maxIndex] intValue]) {
-            maxIndex = i;
-        }
-    }
-    return maxIndex;
-}
-
-- (NSUInteger)_minTimeIndex{
-    if (_times.count<= 2) {
-        return 0;
-    }
-    
-    int minIndex = 1;
-    for (int i = 2; i < _times.count; i++) {
-        if ([_times[i] intValue] < [_times[minIndex] intValue]) {
-            minIndex = i;
-        }
-    }
-    return minIndex;
-}
 
 @end

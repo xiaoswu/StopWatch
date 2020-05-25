@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF03821A247B603D00A67DAD /* StopWatchData.m in Sources */ = {isa = PBXBuildFile; fileRef = AF038219247B603D00A67DAD /* StopWatchData.m */; };
+		AF03821D247B6EC100A67DAD /* recordTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AF03821C247B6EC100A67DAD /* recordTimeCell.m */; };
 		AFCC6B0C227FCDE6009DDEA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCC6B0B227FCDE6009DDEA3 /* AppDelegate.m */; };
 		AFCC6B0F227FCDE6009DDEA3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCC6B0E227FCDE6009DDEA3 /* ViewController.m */; };
 		AFCC6B12227FCDE6009DDEA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFCC6B10227FCDE6009DDEA3 /* Main.storyboard */; };
@@ -18,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF038218247B603D00A67DAD /* StopWatchData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StopWatchData.h; sourceTree = "<group>"; };
+		AF038219247B603D00A67DAD /* StopWatchData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StopWatchData.m; sourceTree = "<group>"; };
+		AF03821B247B6EC100A67DAD /* recordTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = recordTimeCell.h; sourceTree = "<group>"; };
+		AF03821C247B6EC100A67DAD /* recordTimeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = recordTimeCell.m; sourceTree = "<group>"; };
 		AFCC6B07227FCDE6009DDEA3 /* StopWatch_oc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StopWatch_oc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFCC6B0A227FCDE6009DDEA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AFCC6B0B227FCDE6009DDEA3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -70,6 +76,10 @@
 				AFCC6B0E227FCDE6009DDEA3 /* ViewController.m */,
 				AFCC6B23228008C6009DDEA3 /* UIImage+color.h */,
 				AFCC6B24228008C6009DDEA3 /* UIImage+color.m */,
+				AF038218247B603D00A67DAD /* StopWatchData.h */,
+				AF038219247B603D00A67DAD /* StopWatchData.m */,
+				AF03821B247B6EC100A67DAD /* recordTimeCell.h */,
+				AF03821C247B6EC100A67DAD /* recordTimeCell.m */,
 				AFCC6B20227FE2F9009DDEA3 /* WSButton.h */,
 				AFCC6B21227FE2F9009DDEA3 /* WSButton.m */,
 				AFCC6B10227FCDE6009DDEA3 /* Main.storyboard */,
@@ -154,6 +164,8 @@
 				AFCC6B0F227FCDE6009DDEA3 /* ViewController.m in Sources */,
 				AFCC6B1A227FCDE7009DDEA3 /* main.m in Sources */,
 				AFCC6B0C227FCDE6009DDEA3 /* AppDelegate.m in Sources */,
+				AF03821A247B603D00A67DAD /* StopWatchData.m in Sources */,
+				AF03821D247B6EC100A67DAD /* recordTimeCell.m in Sources */,
 				AFCC6B25228008C6009DDEA3 /* UIImage+color.m in Sources */,
 				AFCC6B22227FE2F9009DDEA3 /* WSButton.m in Sources */,
 			);
