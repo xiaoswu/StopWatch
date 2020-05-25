@@ -34,7 +34,7 @@
     _times = [NSMutableArray array];
 }
 
-- (void)beginingNewTimeWithCompletion:(void (^)(void))completion{
+- (void)beginingNewTimeWithCompletion:( void (^)(void))completion{
     [_times insertObject:@0 atIndex:0];
     _isReset = NO;
     

@@ -113,10 +113,11 @@ static NSString *const cellId = @"cellId";
     } else { // 计次
         
         _interval = 0;
-        [_timeData beginingNewTimeWithCompletion:^{
-            [self->_tableView reloadData];
-        }];
+        [_timeData beginingNewTimeWithCompletion:nil];
     }
+    
+    [_tableView reloadData];
+    
 }
 
 - (IBAction)start:(WSButton *)sender {

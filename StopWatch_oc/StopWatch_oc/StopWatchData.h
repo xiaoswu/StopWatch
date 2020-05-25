@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign,readonly)NSTimeInterval minTime;
 
-- (void)beginingNewTimeWithCompletion:(void(^)(void))completion;
+- (void)beginingNewTimeWithCompletion:(nullable void(^)(void))completion;
 
 - (void)timing:(NSTimeInterval)time;
 
