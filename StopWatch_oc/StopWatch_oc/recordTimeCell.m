@@ -19,6 +19,7 @@
         self.backgroundColor = [UIColor blackColor];
         self.textLabel.textColor = [UIColor whiteColor];
         self.detailTextLabel.textColor = [UIColor whiteColor];
+        self.detailTextLabel.font = [UIFont fontWithName:@"Hiragino Sans W3" size:17.0f];
         self.userInteractionEnabled = NO;
     }
     
