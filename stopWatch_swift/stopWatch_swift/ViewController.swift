@@ -15,7 +15,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var resetButton: WSButton!
     @IBOutlet weak var startButton: WSButton!
     
-    var times: [Int]! = []
     var totalTime = 0 {
         willSet{
             timeLable.text = convertTime(seconds: newValue)
@@ -23,15 +22,16 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     var intervals = 0 {
         willSet{
-            let cell = topcell()
+            let cell = timingCell()
             cell?.detailTextLabel?.text = convertTime(seconds: newValue)
         }
 
     }
     var timer: Timer? = nil
     var isReset = true
+    let data: stopWatchData = stopWatchData()
     
-    var currentRunTimeCell: UITableViewCell? = nil
+    var currentRunTimeCell: RecordTimeCell? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,14 +42,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBAction func reset(_ sender: WSButton) {
         if sender.isSelected {
-            isReset = true
-            totalTime = 0
-            intervals = 0
             
-            if (!times.isEmpty){
-                times .removeAll()
-            }
-            
+            resetVariables()
             tableView.reloadData()
             
             sender.isEnabled = false
@@ -57,8 +51,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             
         } else {
             intervals = 0
-            addNewTime()
-        }
+            data.beginingNewTime()
+            print(data.times)
+        } 
+        
+        tableView.reloadData()
+    }
+    
+    func resetVariables(){
+        totalTime = 0
+        intervals = 0
+        data.reset()
     }
     
     @IBAction func start(_ sender: WSButton) {
@@ -67,6 +70,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         if !sender.isSelected {
             resetButton.isSelected = true
             timer?.invalidate()
+            timer = nil
             return
         }
         
@@ -76,22 +80,20 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             resetButton.isSelected = false
         }
         
-        if isReset {addNewTime(); isReset = false}
-        
+        if isReset {
+            data.beginingNewTime {
+                self.tableView.reloadData()
+            }
+        }
         
         if timer == nil {
             timer = Timer.init(timeInterval: 0.01, repeats: true, block: { [weak self] _ in
                 self?.totalTime += 1
                 self?.intervals += 1
-                self?.times[0] = self!.intervals
+                self?.data.timing(time: self!.intervals)
             })
             RunLoop.current.add(self.timer!, forMode: .commonModes)
         }
-    }
-    
-    func addNewTime(){
-        times.insert(0, at: 0)
-        tableView.reloadData()
     }
     
     func setNavigationBar(){
@@ -145,73 +147,25 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return times.count
+        return data.times.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? RecordTimeCell
         
         if cell == nil {
-            cell = UITableViewCell.init(style: .value1, reuseIdentifier: "cell")
+            cell = RecordTimeCell.init(style: .value1, reuseIdentifier: "cell")
         }
         
-        cell?.backgroundColor = UIColor.black
-        
-        cell?.textLabel?.textColor = UIColor.white
-        cell?.detailTextLabel?.textColor = UIColor.white
-        
-        cell?.textLabel?.text = "计次\(times.count - indexPath.row)"
-        let time = times[indexPath.row]
-        cell?.detailTextLabel?.text = convertTime(seconds: time)
-        
-        if indexPath.row == maxTimeIndex() && indexPath.row != 0 {
-            cell?.textLabel?.textColor = UIColor.red
-            cell?.detailTextLabel?.textColor = UIColor.red
-        }
-        
-        if indexPath.row == minTimeIndex() && indexPath.row != 0 {
-            cell?.textLabel?.textColor = UIColor.green
-            cell?.detailTextLabel?.textColor = UIColor.green
-        }
-        
+        cell?.recordTime(with: data, indexPath)
+         
         return cell!;
     }
     
-    
-    
-    func minTimeIndex() ->Int{
-        if times.count <= 2 {
-            return 0;
-        }
-        
-        var minIndex = 1
-        
-        for index in 2..<times.count {
-            if(times[index] < times[minIndex]){
-                minIndex = index
-            }
-        }
-        return minIndex
-    }
-    
-    func maxTimeIndex() ->Int{
-        if times.count <= 2 {
-            return 0;
-        }
-        
-        var maxIndex = 1
-        
-        for index in 2..<times.count {
-            if(times[index] > times[maxIndex]){
-                maxIndex = index
-            }
-        }
-        return maxIndex
-    }
-    
-    func topcell()->UITableViewCell?{
-        return tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath)
+    func timingCell()->RecordTimeCell?{
+        return tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath) as? RecordTimeCell
     }
     
     func convertTime(seconds: Int) ->String{
