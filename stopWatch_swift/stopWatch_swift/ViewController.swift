@@ -27,16 +27,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
 
     }
-    var timer: Timer? = nil
-    var isReset = true
-    let data: stopWatchData = stopWatchData()
     
-    var currentRunTimeCell: RecordTimeCell? = nil
+    var timer: Timer?
+    let data = stopWatchData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setNavigationBar()
+        
         setUI()
     }
     
@@ -44,16 +43,13 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         if sender.isSelected {
             
             resetVariables()
-            tableView.reloadData()
             
             sender.isEnabled = false
             sender.isSelected = false
-            
         } else {
             intervals = 0
             data.beginingNewTime()
-            print(data.times)
-        } 
+        }
         
         tableView.reloadData()
     }
@@ -74,16 +70,13 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             return
         }
         
-        if !resetButton.isEnabled {
-            resetButton.isEnabled = true
-        } else {
-            resetButton.isSelected = false
-        }
-        
-        if isReset {
+        if data.isReset {
             data.beginingNewTime {
                 self.tableView.reloadData()
+                self.resetButton.isEnabled = true
             }
+        } else {
+            resetButton.isSelected = false
         }
         
         if timer == nil {

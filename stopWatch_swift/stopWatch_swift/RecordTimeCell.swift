@@ -33,16 +33,15 @@ class RecordTimeCell: UITableViewCell {
         let time = data.times[indexPath.row]
         detailTextLabel?.text = convertTime(seconds: time)
         
-        if indexPath.row == data.maxTime && indexPath.row != 0 {
+        if indexPath.row == data.maxTime{
             textLabel?.textColor = UIColor.red
             detailTextLabel?.textColor = UIColor.red
         }
         
-        if indexPath.row == data.minTime && indexPath.row != 0 {
+        if indexPath.row == data.minTime{
             textLabel?.textColor = UIColor.green
             detailTextLabel?.textColor = UIColor.green
         }
-        
     }
     
     required init?(coder: NSCoder) {

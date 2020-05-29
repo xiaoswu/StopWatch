@@ -12,10 +12,10 @@ class stopWatchData {
     var isReset:Bool = true
     var times:[Int] = []
     
-    var maxTime:Int {
+    var maxTime:Int? {
         get {
             if times.count <= 2 {
-                return 0;
+                return nil;
             }
             
             var maxIndex = 1
@@ -29,10 +29,10 @@ class stopWatchData {
         }
     }
     
-    var minTime:Int {
+    var minTime:Int? {
         get {
             if times.count <= 2 {
-                return 0;
+                return nil;
             }
             
             var minIndex = 1
