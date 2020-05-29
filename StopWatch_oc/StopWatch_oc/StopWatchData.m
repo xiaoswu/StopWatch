@@ -49,7 +49,7 @@
 
 
 #pragma mark getter
-- (NSTimeInterval)maxTime{
+- (NSUInteger)maxTime{
     if (_times.count <= 2) {
         return 0;
     }
@@ -63,7 +63,7 @@
     return maxIndex;
 }
 
-- (NSTimeInterval)minTime{
+- (NSUInteger)minTime{
     if (_times.count<= 2) {
         return 0;
     }

@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong,readonly) NSArray<NSNumber *> * times;
 
-@property (nonatomic,assign,readonly)NSTimeInterval maxTime;
+@property (nonatomic,assign,readonly)NSUInteger maxTimeIndex;
 
-@property (nonatomic,assign,readonly)NSTimeInterval minTime;
+@property (nonatomic,assign,readonly)NSUInteger minTimeIndex;
 
 - (void)beginingNewTimeWithCompletion:(nullable void(^)(void))completion;
 
