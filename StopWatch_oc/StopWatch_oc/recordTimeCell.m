@@ -37,17 +37,19 @@
 
     self.detailTextLabel.text = [self _convertTime:time];
     self.detailTextLabel.textAlignment = NSTextAlignmentLeft;
-
     
-    if (indexPath.row == data.maxTimeIndex && indexPath.row != 0) {
+    
+    
+    if (indexPath.row == data.maxTimeIndex) {
         self.textLabel.textColor = [UIColor redColor];
         self.detailTextLabel.textColor = [UIColor redColor];
     }
 
-    if (indexPath.row == data.minTimeIndex  && indexPath.row != 0) {
+    if (indexPath.row == data.minTimeIndex) {
         self.textLabel.textColor = [UIColor greenColor];
         self.detailTextLabel.textColor = [UIColor greenColor];
     }
+    
 }
 
 - (NSString *)_convertTime:(NSUInteger)time{

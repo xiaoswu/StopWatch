@@ -17,9 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong,readonly) NSArray<NSNumber *> * times;
 
-@property (nonatomic,assign,readonly)NSUInteger maxTimeIndex;
+// 当不存在时，返回-1
+@property (nonatomic,assign,readonly)NSInteger maxTimeIndex;
 
-@property (nonatomic,assign,readonly)NSUInteger minTimeIndex;
+// 当不存在时，返回-1
+@property (nonatomic,assign,readonly)NSInteger minTimeIndex;
 
 - (void)beginingNewTimeWithCompletion:(nullable void(^)(void))completion;
 
