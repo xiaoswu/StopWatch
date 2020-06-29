@@ -31,7 +31,7 @@ class RecordTimeCell: UITableViewCell {
         
         textLabel?.text = "计次\(data.times.count - indexPath.row)"
         let time = data.times[indexPath.row]
-        detailTextLabel?.text = convertTime(seconds: time)
+        detailTextLabel?.text = time.convertToTimeFormat()
         
         if indexPath.row == data.maxTime{
             textLabel?.textColor = UIColor.red
@@ -46,16 +46,6 @@ class RecordTimeCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func convertTime(seconds: Int) ->String{
-        return String(format: "%02ld:%02ld.%02ld",seconds / 100 / 60, seconds / 100 % 60, seconds % 100)
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 

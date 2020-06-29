@@ -9,8 +9,8 @@
 import Foundation
 
 class stopWatchData {
-    var isReset:Bool = true
-    var times:[Int] = []
+    private(set) var isReset:Bool = true
+    private(set) var times:[Int] = []
     
     var maxTime:Int? {
         get {
@@ -55,12 +55,11 @@ class stopWatchData {
         times = []
     }
     
-    
     func timing(time:Int) {
         times[0] = time
     }
     
-    func beginingNewTime(comletion:(() ->())? = nil){
+    func startNewTime(comletion:(() ->())? = nil){
         times.insert(0, at: 0)
         isReset = false
         
@@ -68,6 +67,5 @@ class stopWatchData {
             comletion()
         }
     }
-    
     
 }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AF038221247BAC6600A67DAD /* stopWatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF038220247BAC6600A67DAD /* stopWatchData.swift */; };
 		AF038223247BB20000A67DAD /* RecordTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF038222247BB20000A67DAD /* RecordTimeCell.swift */; };
+		AF2D9A6424A9BFED00015D0C /* Int+time.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D9A6324A9BFED00015D0C /* Int+time.swift */; };
+		AF2D9A6624A9C57100015D0C /* Color+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D9A6524A9C57100015D0C /* Color+Image.swift */; };
 		AF76ED4922D49E100085C2D0 /* WSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76ED4722D468E90085C2D0 /* WSButton.swift */; };
 		AFF3038D22D3530A00D1DB43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3038C22D3530A00D1DB43 /* AppDelegate.swift */; };
 		AFF3038F22D3530A00D1DB43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3038E22D3530A00D1DB43 /* ViewController.swift */; };
@@ -20,6 +22,8 @@
 /* Begin PBXFileReference section */
 		AF038220247BAC6600A67DAD /* stopWatchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stopWatchData.swift; sourceTree = "<group>"; };
 		AF038222247BB20000A67DAD /* RecordTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTimeCell.swift; sourceTree = "<group>"; };
+		AF2D9A6324A9BFED00015D0C /* Int+time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+time.swift"; sourceTree = "<group>"; };
+		AF2D9A6524A9C57100015D0C /* Color+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Image.swift"; sourceTree = "<group>"; };
 		AF76ED4722D468E90085C2D0 /* WSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSButton.swift; sourceTree = "<group>"; };
 		AFF3038922D3530A00D1DB43 /* stopWatch_swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stopWatch_swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFF3038C22D3530A00D1DB43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,11 +68,13 @@
 				AFF3038E22D3530A00D1DB43 /* ViewController.swift */,
 				AF76ED4722D468E90085C2D0 /* WSButton.swift */,
 				AF038220247BAC6600A67DAD /* stopWatchData.swift */,
+				AF2D9A6324A9BFED00015D0C /* Int+time.swift */,
 				AFF3039022D3530A00D1DB43 /* Main.storyboard */,
 				AFF3039322D3530B00D1DB43 /* Assets.xcassets */,
 				AFF3039522D3530B00D1DB43 /* LaunchScreen.storyboard */,
 				AFF3039822D3530B00D1DB43 /* Info.plist */,
 				AF038222247BB20000A67DAD /* RecordTimeCell.swift */,
+				AF2D9A6524A9C57100015D0C /* Color+Image.swift */,
 			);
 			path = stopWatch_swift;
 			sourceTree = "<group>";
@@ -145,6 +151,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF76ED4922D49E100085C2D0 /* WSButton.swift in Sources */,
+				AF2D9A6424A9BFED00015D0C /* Int+time.swift in Sources */,
+				AF2D9A6624A9C57100015D0C /* Color+Image.swift in Sources */,
 				AF038223247BB20000A67DAD /* RecordTimeCell.swift in Sources */,
 				AF038221247BAC6600A67DAD /* stopWatchData.swift in Sources */,
 				AFF3038F22D3530A00D1DB43 /* ViewController.swift in Sources */,
